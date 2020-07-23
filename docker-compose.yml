@@ -1,0 +1,24 @@
+version: "2"
+services:
+  frontend:
+    # depends_on:
+    #   - postgresql-slave
+    image: node:10.16.0-alpine
+    container_name: frontent
+    working_dir: /usr/src/app/frontend
+    environment:
+      TZ: "Asia/Bangkok"
+      API: http://103.245.164.59:50002"
+    volumes:
+      - ./app/:/usr/src/app/frontend
+    ports:
+      - "51000:5000"
+    # networks:
+    #   dlt:
+    #     ipv4_address: 10.5.1.2
+    command: >
+      sh -c "apk upgrade --update &&
+      apk add bash tzdata curl wget ca-certificates &&
+      ln -sf /usr/share/zoneinfo/$${TZ} /etc/localtime &&
+      echo $${TZ} > /etc/timezone &&
+      rm -rf /var/cache/apk/* && npm run build && npm i -g serve && serve -s build"
