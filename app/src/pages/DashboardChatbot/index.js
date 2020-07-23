@@ -19,7 +19,7 @@ const DashboardChatbot = () => {
 
       let config = {
         method: "post",
-        url: process.env.API,
+        url: `${process.env.API}`,
         headers: {
           "Content-Type": "application/json",
         },
